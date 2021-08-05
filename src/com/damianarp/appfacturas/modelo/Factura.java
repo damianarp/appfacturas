@@ -66,16 +66,8 @@ public class Factura {
     // Método para calcular el total de la factura. Para ello debemos iterar cada importe del arreglo ItemFactura[], sumarlos y retornar el total.
     public double calcularTotal() {
         double total = 0.0; // Variable local del método para inicializar la suma en 0.
-        for(ItemFactura item : this.items) {
-            /* Debemos validar que item sea una instancia de ItemFactura, de esta manera se comprueba que no sea null.
-             Si es null, lo saltamos con un continue y evitamos esa suma en particular.
-             De esta manera evitamos que se lance un NullPointerException al invocar el método calcularImporte(),
-             ya que en la factura puede haber, por ejemplo, 3 items nada más, pero el arreglo se inicializó con un máximo de 12 items,
-             y va a querer sumar items que no existen.*/
-            if(item == null) {
-                continue;
-            }
-            total += item.calcularImporte();
+        for( int i = 0; i < indiceItems; i++) {
+            total += this.items[i].calcularImporte();
         }
         return total;
     }
@@ -103,14 +95,8 @@ public class Factura {
                 .append("\n#\tNombre\t$\tCant.\tSubtotal\n");
 
         // Comenzamos con la iteración.
-        for (ItemFactura item : this.items) {
-            // Aquí también debemos validar que solo se muestren los items (ventas) que no sean null (es decir que no haya inexistentes, sin detalle),
-            // ya que el arreglo se configuró al inicio con 12, pero puede haber menos.
-            // De esta manera se evita que se lance el NullPointerException.
-            if(item == null) {
-                continue;
-            }
-            sb.append(item)
+        for (int i = 0; i < indiceItems; i++) {
+            sb.append(this.items[i].toString()) // Agregamos el método toString() para poder acceder a este método con step into en el modo debug.
                     .append("\n");
         }
         sb.append("\nTotal: ")

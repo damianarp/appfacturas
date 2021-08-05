@@ -16,11 +16,8 @@ public class EjemploFactura {
         Scanner sc = new Scanner(System.in);
         System.out.print("Ingrese una  descripción de la factura: ");
 
-        // Leemos la descripción ingresada por el usuario.
-        String desc = sc.nextLine();
-
-        // Creamos un objeto del tipo Factura
-        Factura factura = new Factura(desc, cliente);
+        // Creamos un objeto del tipo Factura y le pasamos la descripción (sc.nextLine()) y el cliente.
+        Factura factura = new Factura(sc.nextLine(), cliente);
 
         // Definimos un objeto del tipo Producto
         Producto producto;

@@ -32,7 +32,7 @@ public class ItemFactura {
 
     @Override
     public String toString() {
-        return producto +
+        return producto.toString() + // Agregamos el método toString() para poder acceder a este método con step into en el modo debug.
                 "\t" + cantidad +
                 "\t" + calcularImporte();
     }
