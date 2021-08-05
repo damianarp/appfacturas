@@ -25,11 +25,6 @@ public class EjemploFactura {
         // Definimos un objeto del tipo Producto
         Producto producto;
 
-        // Cada producto tendrá:
-        String nombre;
-        double precio;
-        int cantidad;
-
         // Salto de línea
         System.out.println();
 
@@ -37,25 +32,20 @@ public class EjemploFactura {
         for (int i = 0; i < 5; i++) {
             producto = new Producto();
             System.out.print("Ingrese nombre del producto Nº " + producto.getCodigo() + ": ");
-            nombre = sc.nextLine();
-            producto.setNombre(nombre);
+            producto.setNombre(sc.nextLine());
 
             System.out.print("Ingrese el precio: ");
-            precio = sc.nextDouble();
-            producto.setPrecio(precio);
+            producto.setPrecio(sc.nextDouble());
 
             System.out.print("Ingrese la cantidad: ");
-            cantidad = sc.nextInt();
-            ItemFactura item = new ItemFactura(cantidad,producto);
-
             // Agregamos la relación del item a la factura.
-            factura.addItemFactura(item);
+            factura.addItemFactura(new ItemFactura(sc.nextInt(),producto));
 
             // Salto de linea
             System.out.println();
             sc.nextLine();
         }
         // Al terminar de iterar, mostramos el detalle de la factura.
-        System.out.println(factura.generarDetalle());
+        System.out.println(factura);
     }
 }

@@ -110,21 +110,17 @@ public class Factura {
             if(item == null) {
                 continue;
             }
-            sb.append(item.getProducto().getCodigo())
-                    .append("\t")
-                    .append(item.getProducto().getNombre())
-                    .append("\t")
-                    .append(item.getProducto().getPrecio())
-                    .append("\t")
-                    .append(item.getCantidad())
-                    .append("\t")
-                    .append(item.calcularImporte())
+            sb.append(item)
                     .append("\n");
         }
         sb.append("\nTotal: ")
                 .append(calcularTotal());
 
         return sb.toString();
+    }
 
+    @Override
+    public String toString() {
+        return generarDetalle();
     }
 }
