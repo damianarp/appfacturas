@@ -1,5 +1,6 @@
 package com.damianarp.appfacturas.modelo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Factura {
@@ -92,8 +93,38 @@ public class Factura {
                 .append("\nDescripción: ")
                 .append(this.descripcion)
                 .append("\n")
-                .append("\n#\tNombre\t$\tCant.\tTotal\n");
+                .append("\n#\tNombre\t$\tCant.\tSubtotal\n");
+
+        // Formateamos la fecha asi se la agregamos al StringBuilder en el detalle de la factura.
+        SimpleDateFormat df = new SimpleDateFormat("dd 'de' MMMM, yyyy");
+
+        sb.append("Fecha de emisión: ")
+                .append(df.format(this.fecha))
+                .append("\n");
+
+        // Comenzamos con la iteración.
+        for (ItemFactura item : this.items) {
+            // Aquí también debemos validar que solo se muestren los items (ventas) que no sean null (es decir que no haya inexistentes, sin detalle),
+            // ya que el arreglo se configuró al inicio con 12, pero puede haber menos.
+            // De esta manera se evita que se lance el NullPointerException.
+            if(item == null) {
+                continue;
+            }
+            sb.append(item.getProducto().getCodigo())
+                    .append("\t")
+                    .append(item.getProducto().getNombre())
+                    .append("\t")
+                    .append(item.getProducto().getPrecio())
+                    .append("\t")
+                    .append(item.getCantidad())
+                    .append("\t")
+                    .append(item.calcularImporte())
+                    .append("\n");
+        }
+        sb.append("\nTotal: ")
+                .append(calcularTotal());
 
         return sb.toString();
+
     }
 }
