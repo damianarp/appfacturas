@@ -62,4 +62,38 @@ public class Factura {
         }
     }
 
+    // Método para calcular el total de la factura. Para ello debemos iterar cada importe del arreglo ItemFactura[], sumarlos y retornar el total.
+    public double calcularTotal() {
+        double total = 0.0; // Variable local del método para inicializar la suma en 0.
+        for(ItemFactura item : this.items) {
+            /* Debemos validar que item sea una instancia de ItemFactura, de esta manera se comprueba que no sea null.
+             Si es null, lo saltamos con un continue y evitamos esa suma en particular.
+             De esta manera evitamos que se lance un NullPointerException al invocar el método calcularImporte(),
+             ya que en la factura puede haber, por ejemplo, 3 items nada más, pero el arreglo se inicializó con un máximo de 12 items,
+             y va a querer sumar items que no existen.*/
+            if(item == null) {
+                continue;
+            }
+            total += item.calcularImporte();
+        }
+        return total;
+    }
+
+    // Método para generar el detalle de la factura.
+    // Utilizamos un StringBuilder con su método append para concatenar (en vez de usar el +) porque debemos concatenar bastante información
+    // y el StringBuilder tiene un mejor rendimiento en este sentido.
+    public String generarDetalle() {
+        StringBuilder sb = new StringBuilder("Factura Nº: ");
+        sb.append(this.folio)
+                .append("\nCliente: ")
+                .append(this.cliente.getNombre())
+                .append("\tNIF: ")
+                .append(this.cliente.getNif())
+                .append("\nDescripción: ")
+                .append(this.descripcion)
+                .append("\n")
+                .append("\n#\tNombre\t$\tCant.\tTotal\n");
+
+        return sb.toString();
+    }
 }
