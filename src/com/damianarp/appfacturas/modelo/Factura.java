@@ -92,15 +92,15 @@ public class Factura {
                 .append(this.cliente.getNif())
                 .append("\nDescripción: ")
                 .append(this.descripcion)
-                .append("\n")
-                .append("\n#\tNombre\t$\tCant.\tSubtotal\n");
+                .append("\n");
 
         // Formateamos la fecha asi se la agregamos al StringBuilder en el detalle de la factura.
         SimpleDateFormat df = new SimpleDateFormat("dd 'de' MMMM, yyyy");
 
         sb.append("Fecha de emisión: ")
                 .append(df.format(this.fecha))
-                .append("\n");
+                .append("\n")
+                .append("\n#\tNombre\t$\tCant.\tSubtotal\n");
 
         // Comenzamos con la iteración.
         for (ItemFactura item : this.items) {
